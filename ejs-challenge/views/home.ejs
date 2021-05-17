@@ -1,0 +1,12 @@
+<%- include('partials/header') -%>
+<h1>Home</h1>
+<p><%= home %></p>
+<% posts.map((post)=>{ %>
+<div>
+  <h1><%= post.titleBody %></h1>
+  <p><%= post.contentBody.substring(0, 100) + " ..." %>
+    <a href="/posts/<%= post.titleBody %>">ReadMore</a>
+  </p>
+  
+</div>
+<% }) %> <%- include('partials/footer') -%>
