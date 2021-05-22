@@ -1,0 +1,46 @@
+<%- include('partials/header') -%>
+<h1>Compose</h1>
+<form action="/compose/<%= Items._id %>?_method=PATCH" method="POST">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      name="title"
+      type="text"
+      class="form-control"
+      id="title"
+      autofocus
+      autocomplete="off"
+      value="<%= Items.title %>"
+    />
+  </div>
+  <div class="form-group">
+    <label for="content">Content</label>
+    <textarea
+      name="content"
+      class="form-control"
+      type="textarea"
+      id="content"
+      rows="3"
+      value="<%= Items.content %>"
+    >
+<%= Items.content %></textarea
+    >
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Example select</label>
+    <select name="category" class="form-control" id="exampleFormControlSelect1">
+      <% categories.map(category=>{ %>
+      <option value="<%= category %>" <%= Items.category === category ? "selected" : null %> ><%= category %></option>
+      <% }) %>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-warning btn-lg btn-block">Edit</button>
+  <a
+    href="/"
+    class="btn btn-primary btn-lg btn-block"
+    role="button"
+    aria-pressed="true"
+    >Back</a
+  >
+</form>
+<%- include('partials/footer') -%>

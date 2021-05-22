@@ -1,0 +1,22 @@
+<%- include('partials/header') -%>
+<h1><%= Items.title %></h1>
+<p><%= Items.content %></p>
+
+<a
+  href="/compose/<%= Items._id %>"
+  class="btn btn-warning btn-lg btn-block"
+  role="button"
+  aria-pressed="true"
+  >Edit</a
+>
+<a
+  href="/"
+  class="btn btn-primary btn-lg btn-block"
+  role="button"
+  aria-pressed="true"
+  >Back</a
+>
+<form action="/compose/<%= Items._id %>?_method=DELETE" method="POST">
+  <button type="submit" class="btn btn-danger btn-lg btn-block">Delete</button>
+</form>
+<%- include('partials/footer') -%>
