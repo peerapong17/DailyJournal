@@ -1,11 +1,35 @@
-<%- include('partials/header') -%>
-<h1>Home</h1>
-<% posts.map((post)=>{ %>
-<div>
-  <h1><%= post.title %></h1>
-  <p><%= post.content %>
-    <a href="/posts/<%= post._id %>">ReadMore</a>
-  </p>
-  
-</div>
-<% }) %> <%- include('partials/footer') -%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials/header') -%>
+      <h1 class="my-4 text-center">Home</h1>
+      <% posts.map((post)=>{ %>
+      <div class="mt-5 text-center">
+        <img src="<%= post.image %>" alt="<%= post.title %>" width="700px" height="350px">
+        <h4 class="mt-3">
+          <%= post.title %><span class="badge badge-pill badge-success ml-2"
+            ><%= post.category %></span
+          >
+        </h4>
+        <p>
+          <%- post.content.substring(0, 120) %>
+          <a href="/posts/<%= post._id %>">ReadMore...</a>
+        </p>
+      </div>
+      
+      <% }) %>
+    </div>
+    <!-- <div class="footer-padding">
+      <div class="footer">
+        <p>Made with ❤️ by The App Brewery</p>
+      </div>
+    </div> -->
+  </body>
+</html>

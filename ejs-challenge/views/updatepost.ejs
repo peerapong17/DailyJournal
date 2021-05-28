@@ -1,5 +1,6 @@
+<div class="container">
 <%- include('partials/header') -%>
-<h1>Compose</h1>
+  <h1 class="mt-4">Compose</h1>
 <form action="/compose/<%= Items._id %>?_method=PATCH" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
@@ -27,12 +28,27 @@
     >
   </div>
   <div class="form-group">
+    <label for="">Date</label>
+    <input type="date" name="date" value="<%= Items.date %>" class="form-control">
+  </div>
+  <div class="form-group">
     <label for="exampleFormControlSelect1">Example select</label>
     <select name="category" class="form-control" id="exampleFormControlSelect1">
       <% categories.map(category=>{ %>
       <option value="<%= category %>" <%= Items.category === category ? "selected" : null %> ><%= category %></option>
       <% }) %>
     </select>
+  </div>
+  <div class="form-group">
+    <label for="title">Image link</label>
+    <input
+      name="image"
+      type="text"
+      class="form-control"
+      id="title"
+      autocomplete="off"
+      value="<%= Items.image %>"
+    />
   </div>
   <button type="submit" class="btn btn-warning btn-lg btn-block">Edit</button>
   <a
@@ -43,4 +59,5 @@
     >Back</a
   >
 </form>
+</div>
 <%- include('partials/footer') -%>

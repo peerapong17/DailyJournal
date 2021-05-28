@@ -7,18 +7,31 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const app = express();
+// const multer = require('multer')
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './public/images')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + ".jpg")
+//   }
+// })
+
+// var upload = multer({ storage: storage })
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(methodOverride('_method'))
 
-mongoose.connect("mongodb://localhost:27017/newsDB", { useNewUrlParser: true })
+mongoose.connect("mongodb://localhost:27017/newsDB", { useNewUrlParser: true, useUnifiedTopology: true })
 
 const newsSchema = {
   title: String,
+  category: String,
   content: String,
-  category: String
+  date: String,
+  image: String
 }
 
 
@@ -40,24 +53,26 @@ app.get("/contact", function (req, res) {
   res.render("contact", { contact: contactContent });
 });
 
-app.route("/compose")
-  .get(function (req, res) {
-    res.render("compose", { categories });
+
+app.get("/compose", function (req, res) {
+  res.render("compose", { categories });
+})
+
+app.post("/compose" ,function (req, res) {
+  const { postTitle, postContent, postCategory, postDate, postImage} = req.body
+  
+  const news = new News({
+    title: postTitle,
+    category: postCategory,
+    content: postContent,
+    date: postDate,
+    image: postImage
   })
-  .post(function (req, res) {
 
-    const { postTitle, postContent, postCategory } = req.body
+  news.save()
 
-    const news = new News({
-      title: postTitle,
-      content: postContent,
-      category: postCategory
-    })
-
-    news.save()
-
-    res.redirect("/")
-  });
+  res.redirect("/")
+});
 
 app.route("/compose/:id")
   .get(function (req, res) {
@@ -110,11 +125,11 @@ app.get("/posts/:id", function (req, res) {
   })
 });
 
-app.get("/:topic", function (req, res) {
-  const { topic } = req.params
-  News.find({ category: topic }, function (err, foundTopics) {
+app.get("/show/", function (req, res) {
+  const {category} = req.query
+  News.find({ category: category }, function (err, foundTopics) {
     if (!err) {
-      res.render("home", { posts: foundTopics })
+      res.render("category", { posts: foundTopics, category})
     } else {
       res.send(err)
     }
