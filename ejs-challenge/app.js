@@ -35,6 +35,10 @@ app.get("/", function (req, res) {
 
 app.use('/news', newRoutes)
 
+app.use((req, res) => {
+  res.status(404).render('404', {title: "404"})
+})
+
 
 
 

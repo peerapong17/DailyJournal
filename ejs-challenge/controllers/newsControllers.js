@@ -3,7 +3,7 @@ const News = require('../models/news')
 const categories = ["sports", "entertainment", "health", "business", "technology"];
 
 const news_compose_get = (req, res) => {
-    res.render("compose", { categories })
+    res.render("news/compose", { categories })
 }
 
 const news_compose_post = (req, res) => {
@@ -16,12 +16,12 @@ const news_edit_get = (req, res) => {
     const { id } = req.params
     News.findById(id, function (err, foundItems) {
         if (!err) {
-            res.render("updatepost", {
+            res.render("news/updatepost", {
                 Items: foundItems,
                 categories
             });
         } else {
-            res.send(err)
+            res.status(404).render('404', {title: "404"})
         }
     })
 }
@@ -52,11 +52,11 @@ const news_detail = (req, res) => {
     const { id } = req.params
     News.findById(id, function (err, foundItems) {
         if (!err) {
-            res.render("detail", {
+            res.render("news/detail", {
                 Items: foundItems
             });
         } else {
-            res.send(err)
+            res.status(404).render('404', {title: "404"})
         }
     })
 }
@@ -65,9 +65,9 @@ const news_category = (req, res) => {
     const { category } = req.query
     News.find({ category: category }, function (err, foundTopics) {
         if (!err) {
-            res.render("category", { posts: foundTopics, category })
+            res.render("news/category", { posts: foundTopics, category })
         } else {
-            res.send(err)
+            res.status(404).render('404', {title: "404"})
         }
     }).sort({ createdAt: -1 })
 }

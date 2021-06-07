@@ -1,5 +1,5 @@
 <div class="container">
-<%- include('partials/header') -%>
+<%- include('../partials/header') -%>
   <h1 class="mt-4">Compose</h1>
 <form action="/news/edit/<%= Items._id %>?_method=PATCH" method="POST">
   <div class="form-group">
@@ -60,4 +60,4 @@
   >
 </form>
 </div>
-<%- include('partials/footer') -%>
+<%- include('../partials/footer') -%>
