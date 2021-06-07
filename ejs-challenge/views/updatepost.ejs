@@ -1,7 +1,7 @@
 <div class="container">
 <%- include('partials/header') -%>
   <h1 class="mt-4">Compose</h1>
-<form action="/compose/<%= Items._id %>?_method=PATCH" method="POST">
+<form action="/news/edit/<%= Items._id %>?_method=PATCH" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
     <input
